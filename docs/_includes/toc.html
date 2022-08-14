@@ -1,35 +1,23 @@
-<script
-  src="{{ site.baseurl }}/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
 
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
 <script>
-$(document).ready(function() {
+$( document ).ready(function() {
+  // Handler for .ready() called.
 
-    var toc = $('#TOC');
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
 
-    // Select each header
-    sections = $('.td-content h1');
-        $.each(sections, function(idx, v) {
-            section = $(v);
-            var div_id = $(section).attr('id');
-            var div_text = section.text().split('¶')[0];
-            var parent = $("#" + div_id)
-            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a></li>';
-            $(toc).append(content);
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
 
-            // Add section code to subnavigation
-            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
-            var contenders = $("#" + div_id).nextUntil("h1");
-            $.each(contenders, function(idx, contender){
-               if($(contender).is('h2') || $(contender).is('h3')) {
-                   var contender_id = $(contender).attr('id');
-                   var contender_text = $(contender).text().split('¶')[0];
-                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a></li>';
-                   children.append(content);
-                }
-             })
-             $("#link_" + div_id).append(children);
-        });
-    });
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
 </script>
+
+<div id="toc"></div>
+
+{% comment %} Copyright 2021 Google LLC {% endcomment %}

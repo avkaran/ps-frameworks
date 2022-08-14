@@ -1,43 +1,43 @@
-<head>
 <meta charset="utf-8">
-<!-- Copyright 2019-2021 Vanessa Sochat-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{% if page.summary %}{{ page.summary | strip_html | strip_newlines | truncate: 160 }}{% endif %}">
+<meta name="keywords" content="{{page.tags}}{% if page.tags %}, {% endif %} {{page.keywords}}">
+<title>{{ page.title }} | {{ site.site_title }}</title>
+<link rel="stylesheet" href="{{ "css/syntax.css" }}">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.6" />
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
 
-<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="{{ "js/jquery.navgoco.min.js" }}"></script>
 
-<link rel="shortcut icon" href="{{ site.baseurl }}/assets/favicons/favicon.ico" >
-<link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/favicon-16x16.png" sizes="16x16">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/android-icon-36x36.png" sizes="36x36">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/android-icon-48x48.png" sizes="48x48">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/android-icon-72x72.png" sizes="72x72">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/android-icon-96x196.png" sizes="96x196">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/android-icon-144x144.png" sizes="144x144">
-<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/favicons/android-icon-192x192.png"sizes="192x192">
 
-<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-<meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="{{ site.url }}" />
-<meta property="og:site_name" content="{{ site.url }}" />
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="{{ "js/toc.js" }}"></script>
+<script src="{{ "js/customscripts.js" }}"></script>
 
-<meta itemprop="name" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-<meta itemprop="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+<link rel="shortcut icon" href="{{ "images/favicon.ico"  }}">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
-<meta name="twitter:description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}"/>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/palette.css">
-<script
-  src="{{ site.baseurl }}/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-</head>
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.url }}">
+
+{% comment %} Copyright 2021 Google LLC {% endcomment %}

@@ -1,98 +1,108 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
-  <!-- Copyright 2019-2021 Vanessa Sochat-->
-  {% include head.html %}
-  {% include google-analytics.html %}
-  {% if site.version_params.versioning == true %}
-    {% assign pageversion = page.url | append: "/"  | replace: '//', '/' | split: '/' %}
-    {% assign currentpageversion = pageversion[3] %}
-    {% comment %}
-      Let's check to see if we have one of the versions in the URL if not then we are on the latest version
-    {% endcomment %}
-      {% if site.version_params.versions contains currentpageversion %}
-        {% assign currentpageversionpath = site.version_params.version_dir | append: '/' | append: pageversion[3] | append: '/' %}
-        {% comment %}
-          Remove the version from the URL to get the latest document url for use in the alerts etc
-        {% endcomment %}        
-        {% assign latestversion = page.url | replace: currentpageversionpath, '' %}
-      {% else %}
-        {% comment %}
-          Otherwise we are using the latest version
-        {% endcomment %}
-        {% assign latestversion = page.url %}
-        {% assign currentpageversion = site.version_params.latest %}
-      {% endif %}
-  {% endif %}
-  <body class="td-section">
-    {% include header.html %}
-    <div class="container-fluid td-outer">
-      <div class="td-main">
-        <div class="row flex-xl-nowrap">
-          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
-          {% include sidebar.html %}
-          </div>
-          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
-              <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-                  {% include editable.html %}
-              </div>
-              <nav id="TableOfContents"><ul>
-              <li><ul id="TOC">
-                <!-- Links will be appended here-->
-              </ul></li>
-              </ul></nav>
-          </div>
-          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
-	      <ol class="breadcrumb spb-1">
-              {% assign crumbs = page.url | append: "/"  | replace: '//', '/' | split: '/' %}
-              {% for crumb in crumbs offset: 1 %}
-                {% if crumb != "index" %}
-                  {% if forloop.last %}
-                    <li class="breadcrumb-item active" aria-current="page">
-                      <a href="{{ site.url }}{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-                    </li>
-                  {% else %}
-                    {% if page.url != "/docs/" %}
-                      {% if site.version_params.versioning == true and crumb == currentpageversion or crumb == site.version_params.version_dir %}
-                      <!-- Don't display the version number or directory in the breadcrumb -->
-                      {% else %}
-                      <li class="breadcrumb-item">
-                        <a href="{{ site.url }}{{ site.baseurl }}{% assign crumb_limit = forloop.index | plus: 1 %}{% for crumb in crumbs limit: crumb_limit %}{{ crumb | append: '/' }}{% endfor %}">{% if crumb == "docs" %}Documentation{% else %}{{ crumb | replace:'-',' ' | remove:'.html' | capitalize }}{% endif %}</a>
-                      </li>
-                      {% endif %}
-                    {% endif %}
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-	      </ol>
-           </nav>
-           <div class="td-content">        
-            {% if site.version_params.versioning == true %}
-              {% if site.version_params.latest != currentpageversion %}
-              {% capture civersion %}
-                {{- currentpageversion | downcase | strip -}}
-              {% endcapture %}
-                {% include versionalert.html %}
-              {% endif %}
-            {% endif %}
-            
-	      {{ content }}	
-              {% if section.links %}<div class="section-index">
-               <hr class="panel-line">{% for child in section.links %}
-                 <div class="entry">
-                    <h5>
-                        <a href="{% if child.url %}{{ site.baseurl }}{{ child.url }}{% else %}{{ child.external_url }}{% endif %}">{{ child.title }}</a>
-                    </h5>
-                    <p>{{ child.description }}</p>
-                 </div>{% endfor %}
-              </div>{% endif %}
-              {% include feedback.html %}
-           </div>
-          </main>
+<html>
+<head>
+    {% include head.html %}
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    {% if page.datatable == true %}
+    <!-- Include the standard DataTables bits -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
+    <!-- First, this walks through the tables that occur between ...-begin
+         and ...-end and add the "datatable" class to them.
+         Then it invokes DataTable's standard initializer
+         Credit here: http://www.beardedhacker.com/blog/2015/08/28/add-class-attribute-to-markdown-table/
+      -->
+    <script>
+      $(document).ready(function(){
+          $('div.datatable-begin').nextUntil('div.datatable-end', 'table').addClass('display');
+          $('table.display').DataTable( {
+              paging: true,
+              stateSave: true,
+              searching: true
+          });
+       });
+    </script>
+    {% endif %}
+
+</head>
+<body>
+{% include topnav.html %}
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        {% assign content_col_size = "col-md-12" %}
+        {% unless page.hide_sidebar %}
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                {% include sidebar.html %}
+            </div>
+            {% assign content_col_size = "col-md-9" %}
+        {% endunless %}
+
+        <!-- Content Column -->
+        <div class="{{content_col_size}}" id="tg-sb-content">
+            {{content}}
         </div>
-      </div>
-      {% include footer.html %}
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
     </div>
-    {% include scripts.html %}
-  </body>
+
+</body>
+{% if site.google_analytics %}
+{% include google_analytics.html %}
+{% endif %}
 </html>
+
+{% comment %} Copyright 2021 Google LLC {% endcomment %}
