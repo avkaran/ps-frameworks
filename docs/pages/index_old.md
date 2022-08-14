@@ -3,7 +3,7 @@ title: "PS Frameworks"
 keywords: sample homepage
 tags: [getting_started]
 sidebar: mydoc_sidebar
-permalink: index.html
+permalink: index_old.html
 summary: These brief instructions will help you get started quickly with the theme. The other topics in this help provide additional information and detail about working with other aspects of this theme and Jekyll.
 ---
 
@@ -337,11 +337,13 @@ Values for `tags` must be defined in your \_data/tags.yml list. You also need a 
 
 If you don't want the mini-TOC to show on a page (such as for the homepage or landing pages), add `toc: false` in the frontmatter.
 
+
 The `permalink` value should be the same as your filename and include the ".html" file extension.
 
 For more detail, see [Pages][mydoc_pages].
 
 ## Where to store your documentation topics
+
 
 You can store your files for each product inside subfolders following the pattern shown in the theme. For example, product1, product2, etc, can be stored in their own subfolders inside the \_pages directory. Inside \_pages, you can store your topics inside sub-subfolders or sub-sub-folders to your heart's content. When Jekyll builds your site, it will pull the topics into the root directory and use the permalink for the URL.
 
