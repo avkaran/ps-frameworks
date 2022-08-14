@@ -1,12 +1,10 @@
 ## Welcome to PS Frameworks
 
-You can use the [editor on GitHub](https://github.com/avkaran/ps-frameworks/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+Sample Codes are organized to here.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Api Request format
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+api request format for fasterp
 
 ```markdown
 //sample api code block
@@ -14,16 +12,14 @@ import PsContext from '../context';
 const context = useContext(PsContext);
 context.psGlobal.apiRequest('v1/admin/upload-image',context.user.mode,form).then((res,error)=>{
                 if(res) {
-                    setImgLoading(false);
-                    setImageUrl(context.baseUrl + storeFileName);
-                    onFinish(storeFileName);
+                   //your code here.
                 } 
                 else{
                     message.error(error);
-                   
                 } 
                
-            })
+            });
+
 ```
 
 For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
